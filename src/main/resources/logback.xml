@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="log.context.name" value="web3j-quorum" />
+    <property name="log.charset" value="UTF-8" />
+    <property name="log.pattern" value="[%-5level] %date --%thread-- [%logger] %msg %n" />
+
+    <contextName>${log.context.name}</contextName>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="${log.charset}">
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="${log.context.name}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./${log.context.name}.log</file>
+        <prudent>true</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./${log.context.name}/log.%d{yyyyMMdd}
+            </fileNamePattern>
+        </rollingPolicy>
+        <layout>
+            <pattern>${log.pattern}</pattern>
+        </layout>
+    </appender>
+
+    <!--<logger name="org" level="DEBUG"/>
+    <logger name="org.mybatis" level="DEBUG"/>
+    <logger name="java.sql" level="DEBUG" />
+    <logger name="com" level="DEBUG"/>-->
+
+    <root>
+        <level value="info" />
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="${log.context.name}" />
+    </root>
+
+</configuration>
