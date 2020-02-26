@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="log.context.name" value="web3j-ws"/>
+    <property name="log.charset" value="UTF-8"/>
+    <property name="logback.level" value="info"/>
+    <property name="log.pattern" value="[%-5level] %date --%thread-- [%logger] %msg %n"/>
+    <contextName>${log.context.name}</contextName>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{60} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+   <appender name="${log.context.name}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./${log.context.name}.log</file>
+        <prudent>true</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./${log.context.name}/log.%d{yyyyMMdd}
+            </fileNamePattern>
+        </rollingPolicy>
+        <layout>
+            <pattern>${log.pattern}</pattern>
+        </layout>
+    </appender>
+    <!--<logger name="org.tio.core" level="OFF"/>-->
+    <root level="${logback.level}">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="${log.context.name}"/>
+    </root>
+
+</configuration>
