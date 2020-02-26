@@ -1,66 +1,21 @@
 package com.joon.web3j;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
-import com.joon.web3j.model.CallTracer;
-import com.joon.web3j.model.CallTracerMain;
-import com.joon.web3j.model.TraceTransaction;
 import com.joon.web3j.thread.ThreadTaskBlock;
 import com.joon.web3j.thread.ThreadTaskTransaction;
-import com.joon.web3j.util.CommonUtils;
-import com.joon.web3j.util.Constant;
-import com.joon.web3j.util.TokenClient;
-import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jms.core.MessageCreator;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.util.DigestUtils;
-import org.web3j.abi.EventEncoder;
-import org.web3j.abi.FunctionEncoder;
-import org.web3j.abi.FunctionReturnDecoder;
-import org.web3j.abi.TypeReference;
-import org.web3j.abi.datatypes.Address;
-import org.web3j.abi.datatypes.Event;
-import org.web3j.abi.datatypes.Function;
-import org.web3j.abi.datatypes.Type;
-import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.DefaultBlockParameterNumber;
-import org.web3j.protocol.core.Request;
-import org.web3j.protocol.core.methods.request.EthFilter;
-import org.web3j.protocol.core.methods.response.*;
-import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.utils.Collection;
-import rx.Observable;
 import rx.Subscription;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
-/**
- * @program active-mq
- * @author: joon.h
- * @create: 2018/11/21 16:31
- */
 public class Main {
 
     private static Logger logger = LoggerFactory.getLogger(Main.class);
@@ -92,14 +47,28 @@ public class Main {
             web3j = Web3j.build(new HttpService(web3j_address));  // defaults to http://localhost:8545/
 
 
+
             // 指定获取某个区块区间的数据
-//            replayTransactionsObservable(threadPool);
+            replayBlocksAndTransactionsObservable(threadPool);
 
-
-            //从 blockNumber_start 区块获取到最新的块，并且实时监听后续区块
+            //从 blockNumber_start 区块获取到最新的块，并且实时监听后续区块 21150927
 //            catchUpToLatest(threadPool);
 
-            logger.info(" 当前最新区块 ： {}",web3j.ethBlockNumber().send().getBlockNumber());
+//            Subscription subscription = web3j.catchUpToLatestAndSubscribeToNewBlocksObservable(
+//                    new DefaultBlockParameterNumber(blockNumber_start), false)
+//                    .subscribe(block -> {
+//
+//                        try {
+//                            logger.info("当前区块--->"+JSONObject.toJSONString(block));
+////                            threadPool.execute(new ThreadTaskBlock(block));
+//                        } catch (Exception ex) {
+//                            logger.error("   joon  -- catchUpToLatestAndSubscribeToNewBlocksObservable  -- Exception {}", ex.getMessage());
+//                            ex.printStackTrace();
+//                        }
+//
+//                    });
+
+//            logger.info(" 当前最新区块 ： {}",web3j.ethBlockNumber().send().getBlockNumber());
 
 
         } catch (Exception e) {
@@ -111,7 +80,7 @@ public class Main {
     /**
      * 指定获取某个区块区间的数据
      */
-    private static void replayTransactionsObservable(ThreadPoolTaskExecutor threadPool) {
+    private static void replayBlocksAndTransactionsObservable(ThreadPoolTaskExecutor threadPool) {
 
 
         web3j.replayBlocksObservable

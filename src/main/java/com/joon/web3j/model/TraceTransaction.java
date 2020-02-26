@@ -3,11 +3,6 @@ package com.joon.web3j.model;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * @program web3j-quorum
- * @author: joon.h
- * @create: 2018/12/27 17:22
- */
 public class TraceTransaction implements Serializable {
 
     private String type;

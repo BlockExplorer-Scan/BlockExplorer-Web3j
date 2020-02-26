@@ -19,11 +19,6 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @program web3j-quorum
- * @author: joon.h
- * @create: 2019/03/27 15:14
- */
 public class CommonUtils{
 
 

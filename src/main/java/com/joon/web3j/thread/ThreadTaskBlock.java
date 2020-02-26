@@ -14,11 +14,6 @@ import javax.jms.Message;
 import javax.jms.Session;
 import java.io.Serializable;
 
-/**
- * @program web3j-quorum
- * @author: joon.h
- * @create: 2018/11/23 20:53
- */
 public class ThreadTaskBlock implements Runnable, Serializable {
 
     private static Logger logger = LoggerFactory.getLogger(ThreadTaskBlock.class);

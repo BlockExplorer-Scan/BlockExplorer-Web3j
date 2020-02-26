@@ -6,7 +6,6 @@ import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
 import com.joon.web3j.Main;
 import com.joon.web3j.model.CallTracer;
 import com.joon.web3j.model.CallTracerMain;
-import com.joon.web3j.util.CommonUtils;
 import com.joon.web3j.util.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @program web3j-quorum
- * @author: joon.h
- * @create: 2018/11/23 20:53
- */
+
 public class ThreadTaskTransaction implements Runnable, Serializable {
 
     private static Logger logger = LoggerFactory.getLogger(ThreadTaskTransaction.class);
