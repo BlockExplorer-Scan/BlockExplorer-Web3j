@@ -9,4 +9,9 @@
     <version>1.0</version>
 
 
+    <modules>
+        <module>web3j-ws</module>
+        <module>web3j-quorum</module>
+    </modules>
+
 </project>
