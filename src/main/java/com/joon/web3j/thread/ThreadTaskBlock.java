@@ -36,7 +36,7 @@ public class ThreadTaskBlock implements Runnable, Serializable {
     @Override
     public void run() {
 
-        logger.info("挖矿成功 发送到消息队列 number:{} -- hash : {} -- parentHash : {} -- start",
+        logger.info("挖矿成功 发送到消息队列 number:{} -- hash : {} -- parentHash : {} --j start",
                 block.getBlock().getNumber(),block.getBlock().getHash(),block.getBlock().getParentHash());
         try {
 
