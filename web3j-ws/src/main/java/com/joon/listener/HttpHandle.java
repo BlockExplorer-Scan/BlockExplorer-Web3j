@@ -16,7 +16,7 @@ public class HttpHandle implements HttpRequestHandler {
 
     @Override
     public HttpResponse handler(HttpRequest httpRequest) throws Exception {
-        logger.info("   joon  -- HttpHandle  -- http请求");
+        logger.info("   joon f -- HttpHandle  -- http请求");
         if (httpRequest.getRequestLine().getPath().equals("/check")){
             logger.info("   joon  -- HttpHandle  -- 心跳检查");
             HttpResponse httpResponse = new HttpResponse(httpRequest);
