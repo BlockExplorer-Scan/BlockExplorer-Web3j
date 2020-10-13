@@ -18,7 +18,7 @@
         <springframework.version>4.1.9.RELEASE</springframework.version>
         <logback.version>1.1.2</logback.version>
         <lang3.verson>3.7</lang3.verson>
-        <junnit.version>4.12</junnit.version>
+        <junnit.version>4.13.1</junnit.version>
     </properties>
 
     <dependencies>
